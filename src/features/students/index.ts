@@ -1,0 +1,10 @@
+export { studentsService } from "./services/studentsService";
+export { useStudentDashboard } from "./hooks/useStudentDashboard";
+export { useCurrentStudentProfile } from "./hooks/useCurrentStudentProfile";
+export { useSaveStudentOnboarding } from "./hooks/useSaveStudentOnboarding";
+export { computeNextBestAction } from "./nextBestAction";
+export { NextBestAction } from "./components/NextBestAction";
+export { computeRecentActivity } from "./recentActivity";
+export type { StudentDashboardSummary } from "./types";
+export type { NextBestActionDescriptor } from "./nextBestAction";
+export type { RecentActivityItem, RecentActivityKind } from "./recentActivity";

@@ -1,0 +1,18 @@
+export { tutorSearchService } from "./services/tutorSearchService";
+export { useTutorSearch } from "./hooks/useTutorSearch";
+export { useMarketplaceState } from "./hooks/useMarketplaceState";
+export { TutorCard } from "./components/TutorCard";
+export { MatchScore } from "./components/MatchScore";
+export { MatchReasonsList } from "./components/MatchReasonsList";
+export { MarketplaceFilters } from "./components/MarketplaceFilters";
+export { SortDropdown } from "./components/SortDropdown";
+export { ResultsHeader } from "./components/ResultsHeader";
+export { NoResultsSuggestions } from "./components/NoResultsSuggestions";
+export { MarketplaceError } from "./components/MarketplaceError";
+export { MarketplaceSkeleton, TutorCardSkeleton } from "./components/TutorCardSkeleton";
+export { computeMatchScore } from "./matchScore";
+export { getTrustBadges } from "./trustBadges";
+export { getMarketplaceContext, tutorProfilePath, findTutorPath } from "./marketplaceContext";
+export type { MarketplaceContext } from "./marketplaceContext";
+export type { TutorSearchFilter, TutorSearchResponse, TutorSortOrder } from "./types";
+export type { TrustBadge } from "./trustBadges";

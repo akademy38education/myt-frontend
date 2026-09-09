@@ -1,0 +1,531 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* MyT brand identity: green primary, blue secondary — see
+       docs/architecture/README.md#design-system. Never introduce a new
+       accent color inline; extend these tokens instead. */
+    --primary: 158 64% 34%;
+    --primary-hover: 158 68% 28%;
+    --primary-light: 158 55% 92%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217 91% 53%;
+    --secondary-hover: 217 91% 46%;
+    --secondary-light: 217 85% 94%;
+    --secondary-foreground: 0 0% 100%;
+
+    --info: 199 89% 48%;
+    --info-foreground: 0 0% 100%;
+
+    --surface: 0 0% 100%;
+    --surface-elevated: 220 20% 99%;
+    --subtle: 222 20% 35%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+
+    --accent: 165 45% 95%;
+    --accent-foreground: 158 64% 26%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 71% 35%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 26 83% 14%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 158 64% 34%;
+
+    --radius: 0.625rem;
+
+    /* Brand gradient — for hero/CTA moments only, never everyday surfaces */
+    --gradient-brand: linear-gradient(135deg, hsl(158 64% 34%) 0%, hsl(217 91% 53%) 100%);
+
+    /* Phase 18 motion system — the only durations/easing used for
+       interactive transitions across the app. Fast = micro feedback
+       (hover/focus), Normal = default UI transitions, Slow = entrance/exit
+       of larger elements, Hero = large hero/illustration moments. Background
+       animation lives in its own slower range (8-15s) since it plays
+       continuously behind content. */
+    --motion-fast: 150ms;
+    --motion-normal: 250ms;
+    --motion-slow: 450ms;
+    --motion-hero: 800ms;
+    --ease-brand: cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Data-viz categorical palette (validated: see dataviz skill palette.md) */
+    --chart-1: #2a78d6;
+    --chart-2: #eb6834;
+    --chart-3: #1baf7a;
+    --chart-4: #eda100;
+    --chart-good: #0ca30c;
+    --chart-warning: #fab219;
+    --chart-serious: #ec835a;
+    --chart-critical: #d03b3b;
+    --chart-grid: #e1e0d9;
+    --chart-axis: #898781;
+  }
+
+  .dark {
+    --background: 222 47% 7%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 45% 10%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 45% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 158 55% 48%;
+    --primary-hover: 158 55% 58%;
+    --primary-light: 158 40% 16%;
+    --primary-foreground: 158 64% 10%;
+
+    --secondary: 217 91% 64%;
+    --secondary-hover: 217 91% 72%;
+    --secondary-light: 217 40% 18%;
+    --secondary-foreground: 222 47% 7%;
+
+    --info: 199 89% 60%;
+    --info-foreground: 222 47% 7%;
+
+    --surface: 222 47% 7%;
+    --surface-elevated: 222 40% 11%;
+    --subtle: 220 14% 75%;
+
+    --muted: 222 30% 16%;
+    --muted-foreground: 220 14% 65%;
+
+    --accent: 158 30% 18%;
+    --accent-foreground: 150 50% 80%;
+
+    --destructive: 0 63% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 60% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 55%;
+    --warning-foreground: 26 83% 10%;
+
+    --border: 222 25% 20%;
+    --input: 222 25% 20%;
+    --ring: 158 55% 48%;
+
+    --gradient-brand: linear-gradient(135deg, hsl(158 55% 40%) 0%, hsl(217 91% 55%) 100%);
+
+    --chart-1: #3987e5;
+    --chart-2: #d95926;
+    --chart-3: #199e70;
+    --chart-4: #c98500;
+    --chart-good: #0ca30c;
+    --chart-warning: #fab219;
+    --chart-serious: #ec835a;
+    --chart-critical: #e66767;
+    --chart-grid: #2c2c2a;
+    --chart-axis: #898781;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+@layer utilities {
+  .bg-gradient-brand {
+    background-image: var(--gradient-brand);
+  }
+
+  .myt-gradient-text {
+    background-image: var(--gradient-brand);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+}
+
+/* ---- AnimatedBackground (public-facing pages only) ----
+   Soft green/blue blobs + a faint center glow + a few floating particles,
+   all GPU-friendly (transform + opacity only). See
+   components/shared/AnimatedBackground.tsx for usage. Never use behind
+   dense dashboard UI — see the component's own doc comment. */
+@layer utilities {
+  .myt-blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(70px);
+    will-change: transform;
+  }
+
+  .myt-blob-a {
+    top: -10%;
+    left: -8%;
+    width: 26rem;
+    height: 26rem;
+    background: hsl(var(--primary) / 0.35);
+    animation: myt-float-a 24s ease-in-out infinite;
+  }
+
+  .myt-blob-b {
+    top: 20%;
+    right: -10%;
+    width: 24rem;
+    height: 24rem;
+    background: hsl(var(--secondary) / 0.3);
+    animation: myt-float-b 28s ease-in-out infinite;
+  }
+
+  .myt-blob-c {
+    bottom: -15%;
+    left: 30%;
+    width: 20rem;
+    height: 20rem;
+    background: hsl(var(--primary) / 0.2);
+    animation: myt-float-c 32s ease-in-out infinite;
+  }
+
+  .myt-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(45% 45% at 50% 40%, hsl(var(--secondary) / 0.12), transparent 70%);
+  }
+
+  .myt-particle {
+    position: absolute;
+    border-radius: 9999px;
+    background: hsl(var(--primary) / 0.5);
+    will-change: transform, opacity;
+    animation: myt-particle-float 10s ease-in-out infinite;
+  }
+}
+
+@keyframes myt-float-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(3rem, 2rem) scale(1.08);
+  }
+}
+
+@keyframes myt-float-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-2.5rem, -2rem) scale(1.05);
+  }
+}
+
+@keyframes myt-float-c {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(1.5rem, -1.5rem) scale(1.1);
+  }
+}
+
+@keyframes myt-particle-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translateY(-1.25rem) scale(1.3);
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .myt-blob-a,
+  .myt-blob-b,
+  .myt-blob-c,
+  .myt-particle {
+    animation: none;
+  }
+}
+
+/* ---- Interactive micro-motion (Phase 18) ----
+   Shared hover/press feel for cards and buttons — small, GPU-friendly
+   transform + shadow changes only. Applied via className, not by default,
+   so dense list rows etc. can opt out. */
+@layer utilities {
+  .myt-card-hover {
+    transition: transform var(--motion-normal) var(--ease-brand), box-shadow var(--motion-normal) var(--ease-brand);
+  }
+  .myt-card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -12px hsl(var(--foreground) / 0.18);
+  }
+
+  .myt-skeleton {
+    background-image: linear-gradient(90deg, hsl(var(--muted)) 25%, hsl(var(--border)) 50%, hsl(var(--muted)) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2.2s linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .myt-card-hover,
+  .myt-card-hover:hover {
+    transition: none;
+    transform: none;
+  }
+  .myt-skeleton {
+    animation: none;
+  }
+}
+
+/* ---- AnimatedLearningBackground (dashboard-safe) ----
+   A much quieter sibling of AnimatedBackground for behind dense, working
+   UI (dashboards). Low opacity, slow (14-20s), large soft shapes only — no
+   particles, no glow wash. Role variants retint via CSS variables set on
+   the wrapping [data-bg-variant] element so there is one shared animation
+   engine, not four copies. See components/shared/AnimatedLearningBackground.tsx. */
+@layer utilities {
+  .myt-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(60px);
+    will-change: transform;
+    opacity: var(--myt-orb-opacity, 0.16);
+  }
+
+  .myt-orb-1 {
+    background: hsl(var(--myt-bg-color-1) / 1);
+    animation: myt-orb-drift-1 18s ease-in-out infinite;
+  }
+
+  .myt-orb-2 {
+    background: hsl(var(--myt-bg-color-2) / 1);
+    animation: myt-orb-drift-2 22s ease-in-out infinite;
+  }
+
+  .myt-orb-3 {
+    background: hsl(var(--myt-bg-color-1) / 1);
+    animation: myt-orb-drift-3 26s ease-in-out infinite;
+  }
+
+  .myt-node-dot {
+    position: absolute;
+    border-radius: 9999px;
+    background: hsl(var(--myt-bg-color-2) / 1);
+    opacity: var(--myt-node-opacity, 0.35);
+    will-change: transform, opacity;
+    animation: myt-node-pulse 9s ease-in-out infinite;
+  }
+
+  .myt-node-line {
+    position: absolute;
+    background: hsl(var(--myt-bg-color-2) / 0.18);
+    height: 1px;
+    transform-origin: left center;
+  }
+
+  /* Ambient particles for the global "Learning Universe" background
+     (Prompt 20) — reuses the public AnimatedBackground's float/fade
+     keyframe for a consistent motion language, retinted per role via the
+     same [data-bg-variant] color variables as the orbs/nodes above. */
+  .myt-ambient-particle {
+    position: absolute;
+    border-radius: 9999px;
+    background: hsl(var(--myt-bg-color-2) / 0.6);
+    opacity: var(--myt-particle-opacity, 0.4);
+    will-change: transform, opacity;
+    animation-name: myt-particle-float;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+
+  .myt-ambient-line {
+    stroke: hsl(var(--myt-bg-color-2) / var(--myt-line-opacity, 0.16));
+    fill: none;
+  }
+}
+
+[data-bg-variant="student"] {
+  --myt-bg-color-1: var(--primary);
+  --myt-bg-color-2: var(--secondary);
+}
+
+/* Student area accent retint — ties buttons/links/active-nav/highlighted
+   text to the same teal as the Vanta Rings background (see
+   VantaRingsBackground.tsx's `color: 0x37d9b7`) instead of the brand
+   green, so accents read as intentionally designed around the ring
+   animation rather than clashing with it. Darker than the ring's own hue
+   (38% lightness, not 53%) specifically so it stays readable as text/icon
+   color against the white page — the ring color itself is tuned to look
+   good as a moving line, not as static text. Scoped to
+   `[data-role-accent="student"]` (set on the Student layout's root) only —
+   Parent/Tutor/Admin keep the original green. */
+[data-role-accent="student"] {
+  --primary: 167 65% 38%;
+  --primary-hover: 167 68% 32%;
+  --primary-light: 167 55% 92%;
+  --ring: 167 65% 38%;
+}
+[data-bg-variant="parent"] {
+  --myt-bg-color-1: var(--secondary);
+  --myt-bg-color-2: var(--info);
+}
+[data-bg-variant="tutor"] {
+  --myt-bg-color-1: var(--primary);
+  --myt-bg-color-2: var(--primary);
+}
+[data-bg-variant="admin"] {
+  --myt-bg-color-1: var(--subtle);
+  --myt-bg-color-2: var(--secondary);
+}
+[data-bg-variant="hero"] {
+  --myt-bg-color-1: var(--primary);
+  --myt-bg-color-2: var(--secondary);
+}
+[data-bg-variant="public"] {
+  --myt-bg-color-1: var(--primary);
+  --myt-bg-color-2: var(--secondary);
+}
+
+/* Prompt 20 §12 — mobile must be noticeably fainter than desktop/tablet
+   regardless of the `intensity` prop, so this ceiling wins over the
+   inline-style opacity variables set per-instance (hence !important — the
+   one deliberate, narrowly-scoped use in this file, purely for a
+   responsive decorative ceiling that CSS variable specificity can't
+   otherwise express). */
+@media (max-width: 639px) {
+  [data-bg-variant] {
+    --myt-orb-opacity: 0.1 !important;
+    --myt-node-opacity: 0.12 !important;
+    --myt-particle-opacity: 0.14 !important;
+    --myt-line-opacity: 0.08 !important;
+  }
+}
+
+@keyframes myt-orb-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(2.5rem, 1.5rem) scale(1.06); }
+}
+@keyframes myt-orb-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-2rem, 2rem) scale(1.04); }
+}
+@keyframes myt-orb-drift-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(1.5rem, -2rem) scale(1.08); }
+}
+@keyframes myt-node-pulse {
+  0%, 100% { transform: scale(1); opacity: var(--myt-node-opacity, 0.35); }
+  50% { transform: scale(1.6); opacity: calc(var(--myt-node-opacity, 0.35) * 1.6); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .myt-orb-1,
+  .myt-orb-2,
+  .myt-orb-3,
+  .myt-node-dot,
+  .myt-ambient-particle {
+    animation: none;
+  }
+}
+
+/* ---- Decorative primitives (Phase 18) ----
+   Small shared building blocks used by components/shared/decor/*. Kept
+   centralized here rather than inline per-component <style> tags. */
+@layer utilities {
+  .myt-shape-drift {
+    animation: myt-shape-drift 16s ease-in-out infinite;
+    will-change: transform;
+  }
+  .myt-dot-pulse {
+    animation: myt-dot-pulse 1.4s ease-in-out infinite;
+  }
+  .myt-glow-pulse {
+    animation: myt-glow-pulse 12s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+  /* A slow, continuous orbit — used by the landing hero's learning-orb
+     illustration to swing its subject nodes around the center. Pair every
+     `.myt-orbit-rotate` with a `.myt-orbit-counter` on the node's inner
+     content (same duration) so icons/labels stay upright instead of
+     spinning with the orbit. */
+  .myt-orbit-rotate {
+    animation: myt-orbit-rotate 46s linear infinite;
+    will-change: transform;
+  }
+  .myt-orbit-counter {
+    animation: myt-orbit-counter-rotate 46s linear infinite;
+    will-change: transform;
+  }
+}
+
+@keyframes myt-shape-drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(0.75rem, -0.75rem) rotate(8deg); }
+}
+@keyframes myt-orbit-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes myt-orbit-counter-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+@keyframes myt-dot-pulse {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+@keyframes myt-glow-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .myt-shape-drift,
+  .myt-dot-pulse,
+  .myt-glow-pulse,
+  .myt-orbit-rotate,
+  .myt-orbit-counter {
+    animation: none;
+  }
+}
+
+/* Small dot under any calendar day that has an event — see features/calendar/components/EventCalendar.tsx */
+.myt-calendar-has-event {
+  position: relative;
+}
+.myt-calendar-has-event::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: hsl(var(--primary));
+}

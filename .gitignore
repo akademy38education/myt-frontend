@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.env
+.env.local
+.env.*.local
+*.tsbuildinfo
+*.log
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# .env.production holds no secret — just VITE_USE_MOCK_API=true, which is
+# what makes this a self-contained frontend-only demo build. It must be
+# committed so a fresh Vercel build picks it up without extra dashboard config.
+!.env.production
