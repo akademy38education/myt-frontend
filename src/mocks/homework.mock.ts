@@ -29,7 +29,7 @@ export const mockHomework: Homework[] = [
     id: "homework-3",
     studentId: "student-1",
     tutorId: "tutor-1",
-    title: "Forces & motion recap",
+    title: "Forces and motion recap",
     status: HomeworkStatus.ASSIGNED,
     dueAt: "2026-09-12T18:00:00.000Z",
     questionIds: ["question-6", "question-7"],

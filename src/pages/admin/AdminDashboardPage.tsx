@@ -4,7 +4,6 @@ import { PageHeader } from "@/components/shared/PageHeader";
 import { StatCard } from "@/components/shared/StatCard";
 import { LoadingState } from "@/components/shared/LoadingState";
 import { ErrorState } from "@/components/shared/ErrorState";
-import { AnimatedLearningBackground } from "@/components/shared/AnimatedLearningBackground";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, CHART_COLORS } from "@/components/ui/chart";
 import { useAdminOverview } from "@/features/admin";
@@ -21,11 +20,8 @@ export function AdminDashboardPage() {
 
   return (
     <div>
-      <div className="relative isolate mb-6 overflow-hidden rounded-xl border border-border bg-card px-6 pt-5 pb-1 sm:px-8">
-        <AnimatedLearningBackground variant="admin" intensity="subtle" showNodes={false} />
-        <div className="relative z-10">
-          <PageHeader title="Platform overview" description="A snapshot of MyT activity across all roles." />
-        </div>
+      <div className="mb-6 rounded-xl border border-border bg-card px-6 pt-5 pb-1 sm:px-8">
+        <PageHeader title="Platform overview" description="A snapshot of MyT activity across all roles." />
       </div>
 
       {isLoading && <LoadingState label="Loading platform overview..." />}

@@ -7,7 +7,6 @@ import { Badge } from "@/components/ui/badge";
 import { LoadingState } from "@/components/shared/LoadingState";
 import { ErrorState } from "@/components/shared/ErrorState";
 import { EmptyState } from "@/components/shared/EmptyState";
-import { AnimatedLearningBackground } from "@/components/shared/AnimatedLearningBackground";
 import { ProgressRing } from "@/components/shared/decor";
 import { useAuth } from "@/hooks/useAuth";
 import { useCurrentStudentProfile, computeNextBestAction, computeRecentActivity, NextBestAction, type RecentActivityKind } from "@/features/students";
@@ -65,9 +64,8 @@ export function StudentDashboardPage() {
 
   return (
     <div className="space-y-8">
-      <div className="relative isolate overflow-hidden rounded-2xl border border-border bg-card/80 px-6 py-7 backdrop-blur-sm sm:px-8">
-        <AnimatedLearningBackground variant="student" intensity="subtle" />
-        <div className="relative z-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div className="rounded-2xl border border-border bg-gradient-to-br from-mint to-warm px-6 py-7 sm:px-8">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h1 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
               {greeting()}, <span className="text-primary">{greetName}</span> 👋
@@ -161,7 +159,7 @@ export function StudentDashboardPage() {
 
       <section>
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-lg font-semibold tracking-tight text-foreground">Your progress</h2>
+          <h2 className="text-lg font-semibold tracking-tight text-foreground">Continue learning</h2>
           <Link to="/student/progress" className="flex items-center gap-1 text-sm font-medium text-primary hover:underline">
             View details
             <ArrowRight className="h-3.5 w-3.5" />
@@ -169,23 +167,31 @@ export function StudentDashboardPage() {
         </div>
         {masterySummaries && masterySummaries.length > 0 ? (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {masterySummaries.map((summary) => (
-              <Link key={summary.subjectId} to={`/student/learning/subjects/${summary.subjectId}`}>
-                <Card className="myt-card-hover h-full">
-                  <CardContent className="flex items-center gap-4 p-5">
-                    <ProgressRing percent={summary.overallPercent} size={56} strokeWidth={5} />
-                    <div className="min-w-0">
-                      <p className="truncate font-medium">{summary.subjectName}</p>
-                      <p className="truncate text-xs text-muted-foreground">
-                        {summary.strongTopics.length > 0
-                          ? `${summary.strongTopics.length} strong topic${summary.strongTopics.length === 1 ? "" : "s"}`
-                          : "Just getting started"}
-                      </p>
+            {masterySummaries.map((summary) => {
+              const focusTopic = summary.needsAttentionTopics[0];
+              return (
+                <Card key={summary.subjectId} className="myt-card-hover h-full">
+                  <CardContent className="flex h-full flex-col gap-4 p-5">
+                    <div className="flex items-center gap-4">
+                      <ProgressRing percent={summary.overallPercent} size={56} strokeWidth={5} />
+                      <div className="min-w-0">
+                        <p className="truncate font-medium">{summary.subjectName}</p>
+                        <p className="truncate text-xs text-muted-foreground">
+                          {focusTopic
+                            ? `Focus: ${focusTopic}`
+                            : summary.strongTopics.length > 0
+                              ? `${summary.strongTopics.length} strong topic${summary.strongTopics.length === 1 ? "" : "s"}`
+                              : "Just getting started"}
+                        </p>
+                      </div>
                     </div>
+                    <Button size="sm" variant="outline" asChild className="mt-auto w-fit">
+                      <Link to={`/student/learning/subjects/${summary.subjectId}`}>Continue</Link>
+                    </Button>
                   </CardContent>
                 </Card>
-              </Link>
-            ))}
+              );
+            })}
           </div>
         ) : (
           <Card>

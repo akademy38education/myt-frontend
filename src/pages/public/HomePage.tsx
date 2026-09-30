@@ -1,50 +1,29 @@
 import { Link } from "react-router-dom";
-import {
-  Search,
-  ClipboardCheck,
-  CalendarCheck,
-  BookOpenCheck,
-  Presentation,
-  Video,
-  FileText,
-  Dumbbell,
-  LineChart,
-  Sparkles,
-  RotateCcw,
-  Brain,
-  Library,
-  Trophy,
-  ArrowRight,
-} from "lucide-react";
+import { Target, Library, ArrowRight, CheckCircle2, ClipboardCheck, UserCheck, LineChart, Video, Medal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Hero } from "@/components/marketing/Hero";
 import { LearningOrbIllustration } from "@/components/marketing/LearningOrbIllustration";
-import { VantaCloudsBackground } from "@/components/background/VantaCloudsBackground";
+import { LearningJourneyPath } from "@/components/marketing/LearningJourneyPath";
+import { CloudSkyBackground } from "@/components/background/CloudSkyBackground";
 import { SectionHeading } from "@/components/marketing/SectionHeading";
 import { FeatureCard } from "@/components/marketing/FeatureCard";
 import { TestimonialCard } from "@/components/marketing/TestimonialCard";
 import { SubjectCard } from "@/components/marketing/SubjectCard";
-import { PricingCard } from "@/components/marketing/PricingCard";
 import { Reveal } from "@/components/shared/Reveal";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { cn } from "@/utils/cn";
 import { SUBJECTS } from "@/constants/subjects";
 import { TESTIMONIALS } from "@/constants/testimonials";
-import { PRICING_PLANS } from "@/constants/pricingPlans";
 import { FAQS } from "@/constants/faqs";
 
-const JOURNEY = [
-  { label: "Diagnose", icon: ClipboardCheck, description: "A short diagnostic identifies exactly where a student stands." },
-  { label: "Match", icon: Search, description: "MyT Intelligence recommends tutors fit to the student's goals and gaps." },
-  { label: "Book", icon: CalendarCheck, description: "Book a lesson in the subject and time that works." },
-  { label: "Prepare", icon: BookOpenCheck, description: "The tutor receives context and a suggested lesson plan beforehand." },
-  { label: "Teach", icon: Presentation, description: "Lessons happen live in the MyT classroom." },
-  { label: "Record", icon: Video, description: "Every lesson is recorded and chaptered automatically." },
-  { label: "Summarise", icon: FileText, description: "An AI-generated summary and key points are ready right after." },
-  { label: "Practise", icon: Dumbbell, description: "Homework tailored to what came up in the lesson reinforces it." },
-  { label: "Track", icon: LineChart, description: "Mastery is tracked topic by topic, not just grade by grade." },
-  { label: "Improve", icon: Sparkles, description: "Recommendations adapt to focus on the next real gap." },
-  { label: "Rebook", icon: RotateCcw, description: "The next lesson is prepared around what's still to learn." },
+const TRUST_INDICATORS = ["Expert, verified tutors", "Personalized to real gaps", "Progress you can actually see"];
+
+const WHY_MYT = [
+  { icon: ClipboardCheck, title: "Every gap identified", description: "A short diagnostic shows exactly what a student needs, before the first lesson is even booked." },
+  { icon: UserCheck, title: "Matched, not just searched", description: "SmartMatch recommends tutors fit to goals and gaps, not just star ratings." },
+  { icon: Video, title: "Live lessons, always captured", description: "Every lesson runs in the MyT classroom and is recorded and summarised automatically." },
+  { icon: LineChart, title: "Progress you can see", description: "Mastery is tracked topic by topic, so growth is visible, not assumed." },
 ];
 
 const ROLES = [
@@ -55,13 +34,26 @@ const ROLES = [
 
 const TOP_SUBJECTS = SUBJECTS.slice(0, 6);
 const HOME_FAQS = FAQS.slice(0, 4);
+const TOTAL_TUTORS = SUBJECTS.reduce((sum, s) => sum + s.tutorCount, 0);
+const STATS = [
+  { value: `${Math.round(TOTAL_TUTORS / 10) * 10}+`, label: "Verified tutors" },
+  { value: `${SUBJECTS.length}`, label: "Subjects covered" },
+  { value: "0%", label: "Platform fees for students" },
+  { value: "24/7", label: "Book a lesson anytime" },
+];
 
 export function HomePage() {
   return (
     <div>
       <Hero
         eyebrow="MyT — The complete tutoring platform"
-        title="Find the right tutor. Build the right learning journey. Improve with every lesson."
+        title={
+          <>
+            Find the right tutor.
+            <br />
+            <span className="text-primary">Build real progress.</span>
+          </>
+        }
         description="MyT manages the whole learning journey: diagnosing what a student needs, matching them with the right tutor, and turning every lesson into measurable, lasting progress."
         actions={
           <>
@@ -73,10 +65,44 @@ export function HomePage() {
             </Button>
           </>
         }
-        backgroundSlot={<VantaCloudsBackground />}
+        backgroundSlot={<CloudSkyBackground />}
       >
+        <div className="mb-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          {TRUST_INDICATORS.map((item) => (
+            <span key={item} className="flex items-center gap-1.5 text-sm font-medium text-foreground/80">
+              <CheckCircle2 className="h-4 w-4 text-primary" aria-hidden="true" />
+              {item}
+            </span>
+          ))}
+        </div>
         <LearningOrbIllustration className="hidden sm:block" />
       </Hero>
+
+      {/* ---- Why MyT ---- */}
+      <section className="bg-warm py-16">
+        <div className="mx-auto max-w-6xl px-4">
+          <SectionHeading eyebrow="Why MyT" title="A learning journey built around one student, not a generic class" />
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {WHY_MYT.map((item, index) => (
+              <Reveal key={item.title} delayMs={index * 60}>
+                <FeatureCard icon={item.icon} title={item.title} description={item.description} className="h-full" />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---- Stat band ---- */}
+      <section className="bg-foreground py-14 text-background">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-4 lg:grid-cols-4">
+          {STATS.map((stat, index) => (
+            <Reveal key={stat.label} delayMs={index * 60} className="text-center lg:text-left">
+              <p className="text-4xl font-bold tracking-tight sm:text-5xl">{stat.value}</p>
+              <p className="mt-2 text-sm text-white/70">{stat.label}</p>
+            </Reveal>
+          ))}
+        </div>
+      </section>
 
       {/* ---- Find Your Tutor ---- */}
       <section className="mx-auto max-w-6xl px-4 py-16">
@@ -103,7 +129,7 @@ export function HomePage() {
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 lg:grid-cols-2">
           <Reveal>
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-brand text-white">
-              <Brain className="h-6 w-6" aria-hidden="true" />
+              <Target className="h-6 w-6" aria-hidden="true" />
             </div>
             <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">SmartMatch finds the right tutor, not just a top-rated one</h2>
             <p className="mt-4 text-muted-foreground">
@@ -115,44 +141,28 @@ export function HomePage() {
             </Button>
           </Reveal>
           <Reveal delayMs={100}>
-            <Card>
-              <CardContent className="space-y-3 p-6">
-                {["Subject & exam board fit", "Learning goals alignment", "Availability match", "Teaching style fit"].map((item) => (
-                  <div key={item} className="flex items-center gap-3 rounded-md border border-border bg-background p-3 text-sm">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-                      <Sparkles className="h-3.5 w-3.5" />
-                    </span>
-                    {item}
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
+            <div className="flex flex-wrap gap-3">
+              {[
+                { label: "Subject and exam board fit", dot: "bg-primary" },
+                { label: "Learning goals alignment", dot: "bg-secondary" },
+                { label: "Availability match", dot: "bg-achievement" },
+                { label: "Teaching style fit", dot: "bg-info" },
+              ].map((item) => (
+                <span key={item.label} className="flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium">
+                  <span className={cn("h-2 w-2 shrink-0 rounded-full", item.dot)} aria-hidden="true" />
+                  {item.label}
+                </span>
+              ))}
+            </div>
           </Reveal>
         </div>
       </section>
 
       {/* ---- Learning journey ---- */}
       <section className="mx-auto max-w-6xl px-4 py-16">
-        <SectionHeading eyebrow="How MyT works" title="The MyT learning journey" description="Eleven connected steps, not a one-off booking." />
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-          {JOURNEY.map((step, index) => (
-            <Reveal key={step.label} delayMs={index * 30}>
-              <Card className="relative h-full transition-shadow duration-300 hover:shadow-md">
-                <CardContent className="flex flex-col gap-2 p-4">
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
-                      {index + 1}
-                    </span>
-                    <step.icon className="h-4 w-4 text-primary" aria-hidden="true" />
-                  </div>
-                  <p className="font-medium">{step.label}</p>
-                  <p className="text-xs text-muted-foreground">{step.description}</p>
-                </CardContent>
-              </Card>
-            </Reveal>
-          ))}
-        </div>
-        <div className="mt-6 text-center">
+        <SectionHeading eyebrow="How MyT works" title="One connected learning journey" description="Not a one-off booking — every step builds on the last." />
+        <LearningJourneyPath />
+        <div className="mt-10 text-center">
           <Button variant="outline" asChild>
             <Link to="/how-it-works">
               See the full journey
@@ -184,22 +194,38 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* ---- Learning Library + Mastery ---- */}
+      {/* ---- Learning Library + Mastery + Achievements ---- */}
       <section className="mx-auto max-w-6xl px-4 py-16">
-        <div className="grid gap-5 sm:grid-cols-2">
+        <SectionHeading eyebrow="Beyond the lesson" title="Progress that stays visible between lessons" />
+        <div className="grid gap-5 sm:grid-cols-3">
           <Reveal>
             <FeatureCard
               icon={Library}
               title="Learning library"
               description="Bite-sized articles, videos and worked examples, matched automatically to the gaps a student's lessons reveal."
+              className="h-full"
             />
           </Reveal>
           <Reveal delayMs={60}>
             <FeatureCard
-              icon={Trophy}
-              title="Mastery & progress"
+              icon={LineChart}
+              title="Mastery and progress"
               description="Topic-level mastery tracking means progress is measured by what's actually understood, not just grades."
+              className="h-full"
             />
+          </Reveal>
+          <Reveal delayMs={120}>
+            <Card className="h-full">
+              <CardContent className="flex flex-col gap-3 p-6">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-achievement/15 text-achievement-foreground">
+                  <Medal className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <h3 className="font-semibold">Achievements that mean something</h3>
+                <p className="text-sm text-muted-foreground">
+                  Streaks, mastered topics and completed goals unlock real badges — a record of progress, not a participation trophy.
+                </p>
+              </CardContent>
+            </Card>
           </Reveal>
         </div>
       </section>
@@ -215,26 +241,6 @@ export function HomePage() {
               </Reveal>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ---- Pricing teaser ---- */}
-      <section className="mx-auto max-w-6xl px-4 py-16">
-        <SectionHeading eyebrow="Pricing" title="Simple, transparent pricing" description="No subscription fees for students or parents." />
-        <div className="grid gap-6 lg:grid-cols-3">
-          {PRICING_PLANS.map((plan, index) => (
-            <Reveal key={plan.name} delayMs={index * 60}>
-              <PricingCard {...plan} />
-            </Reveal>
-          ))}
-        </div>
-        <div className="mt-6 text-center">
-          <Button variant="outline" asChild>
-            <Link to="/pricing">
-              See full pricing details
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
         </div>
       </section>
 

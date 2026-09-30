@@ -1,5 +1,5 @@
-import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { GraduationCap, Menu, LayoutDashboard, LogOut } from "lucide-react";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Menu, LayoutDashboard, LogOut } from "lucide-react";
 import { useState } from "react";
 import { UserRole } from "@myt/shared";
 import { Button } from "@/components/ui/button";
@@ -16,15 +16,14 @@ import { useAuth } from "@/hooks/useAuth";
 import { initials } from "@/utils/formatters";
 import { cn } from "@/utils/cn";
 import { Footer } from "@/components/marketing/Footer";
-import { AnimatedLearningBackground } from "@/components/shared/AnimatedLearningBackground";
+import { Logo } from "@/components/shared/Logo";
 
 const PUBLIC_NAV = [
-  { label: "How it works", to: "/how-it-works" },
-  { label: "For students", to: "/for-students" },
-  { label: "For parents", to: "/for-parents" },
-  { label: "For tutors", to: "/for-tutors" },
-  { label: "Subjects", to: "/subjects" },
-  { label: "Pricing", to: "/pricing" },
+  { label: "How It Works", to: "/how-it-works" },
+  { label: "Subjects & Pricing", to: "/subjects" },
+  { label: "Students", to: "/for-students" },
+  { label: "Parents", to: "/for-parents" },
+  { label: "Tutors", to: "/for-tutors" },
 ];
 
 const ROLE_HOME: Record<UserRole, string> = {
@@ -38,24 +37,14 @@ export function PublicLayout() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
   const dashboardPath = user ? ROLE_HOME[user.role] : "/";
-  // The Home Page has its own dedicated Vanta Clouds background (Prompt 21)
-  // instead of this shared CSS ambient system — every other public page
-  // keeps it unchanged.
-  const isHomePage = location.pathname === "/";
 
   return (
     <div className="relative flex min-h-screen flex-col">
-      {!isHomePage && (
-        <div className="fixed inset-0 -z-10 overflow-hidden">
-          <AnimatedLearningBackground variant="public" intensity="subtle" />
-        </div>
-      )}
       <header className="border-b border-border bg-background">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
           <Link to="/" className="flex items-center gap-2 font-semibold">
-            <GraduationCap className="h-6 w-6 text-primary" aria-hidden="true" />
+            <Logo className="h-8 w-8" />
             MyT
           </Link>
 

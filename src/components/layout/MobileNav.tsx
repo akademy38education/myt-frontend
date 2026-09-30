@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
-import { Menu, GraduationCap } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Drawer, DrawerContent, DrawerTrigger, DrawerTitle } from "@/components/ui/drawer";
+import { Logo } from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
 import type { NavItem } from "@/constants/navigation";
 import { useUiStore } from "@/stores/uiStore";
@@ -19,7 +20,7 @@ export function MobileNav({ items, roleLabel }: { items: NavItem[]; roleLabel: s
       </DrawerTrigger>
       <DrawerContent side="left" className="w-72">
         <div className="flex items-center gap-2">
-          <GraduationCap className="h-6 w-6 text-primary" aria-hidden="true" />
+          <Logo className="h-8 w-8" />
           <div className="leading-tight">
             <DrawerTitle className="text-base font-semibold">MyT</DrawerTitle>
             <p className="text-xs text-muted-foreground">{roleLabel}</p>

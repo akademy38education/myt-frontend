@@ -52,7 +52,18 @@
     --input: 220 13% 91%;
     --ring: 158 64% 34%;
 
-    --radius: 0.625rem;
+    --radius: 1.125rem;
+
+    /* Education-brand refinement tokens (student-first redesign) — additive,
+       not a replacement for the primary/secondary system above. Used
+       sparingly: warm backdrop for marketing/storytelling sections (never
+       dense dashboard UI, which stays on plain --background), and a gold
+       accent reserved for achievements/streaks/highlights so it keeps its
+       "earned" meaning instead of becoming a generic decoration color. */
+    --warm: 42 60% 97%;
+    --mint: 158 45% 95%;
+    --achievement: 38 92% 58%;
+    --achievement-foreground: 26 83% 14%;
 
     /* Brand gradient — for hero/CTA moments only, never everyday surfaces */
     --gradient-brand: linear-gradient(135deg, hsl(158 64% 34%) 0%, hsl(217 91% 53%) 100%);
@@ -127,6 +138,11 @@
     --border: 222 25% 20%;
     --input: 222 25% 20%;
     --ring: 158 55% 48%;
+
+    --warm: 42 25% 14%;
+    --mint: 158 25% 14%;
+    --achievement: 38 92% 58%;
+    --achievement-foreground: 26 83% 10%;
 
     --gradient-brand: linear-gradient(135deg, hsl(158 55% 40%) 0%, hsl(217 91% 55%) 100%);
 

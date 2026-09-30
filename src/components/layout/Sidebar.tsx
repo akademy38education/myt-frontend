@@ -1,13 +1,13 @@
 import { NavLink } from "react-router-dom";
-import { GraduationCap } from "lucide-react";
 import type { NavItem } from "@/constants/navigation";
 import { cn } from "@/utils/cn";
+import { Logo } from "@/components/shared/Logo";
 
 export function Sidebar({ items, roleLabel }: { items: NavItem[]; roleLabel: string }) {
   return (
     <aside className="hidden w-64 shrink-0 flex-col border-r border-border bg-card text-card-foreground lg:flex">
       <div className="flex h-16 items-center gap-2 border-b border-border px-6">
-        <GraduationCap className="h-6 w-6 text-primary" aria-hidden="true" />
+        <Logo className="h-8 w-8" />
         <div className="leading-tight">
           <p className="font-semibold text-foreground">MyT</p>
           <p className="text-xs text-muted-foreground">{roleLabel}</p>

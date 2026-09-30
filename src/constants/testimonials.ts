@@ -24,7 +24,7 @@ export const TESTIMONIALS: Testimonial[] = [
     quote:
       "The AI lesson summaries save me at least 20 minutes after every session, and the homework it suggests actually matches what we covered.",
     name: "Dr. Sofia Reyes",
-    role: "MyT Tutor, Maths & Physics",
+    role: "MyT Tutor, Maths and Physics",
     rating: 5,
   },
 ];

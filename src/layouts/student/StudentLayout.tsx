@@ -1,29 +1,13 @@
 import { RoleShellLayout } from "@/layouts/RoleShellLayout";
 import { StudentBottomNav } from "@/components/layout/StudentBottomNav";
-import { VantaRingsBackground } from "@/components/background/VantaRingsBackground";
 import { STUDENT_NAV } from "@/constants/navigation";
 
 /**
- * The Student area runs `VantaRingsBackground` across every page (sidebar,
- * navbar, bottom nav, all routes) — a separate, later request from the
- * rest of the app.
- *
- * Stays on the normal light theme (an earlier version of this also forced
- * a dark theme here, but the ring canvas is deliberately translucent
- * (`backgroundAlpha: 0.6` — see `VantaRingsBackground.tsx`), so it blends
- * with whatever's behind it: over a light page it reads as the bright
- * teal-with-vivid-rings look from the reference image; over a dark navy
- * page the same colors turn muddy and the rings nearly disappear, which is
- * exactly what happened and why the dark theme was reverted).
+ * The Student area previously ran `VantaRingsBackground` across every page —
+ * feedback called the spinning ring animation distracting/messy, so it's
+ * been removed in favour of `RoleShellLayout`'s default ambient background
+ * (the same clean, subtle system the Parent/Tutor/Admin areas already use).
  */
 export function StudentLayout() {
-  return (
-    <RoleShellLayout
-      items={STUDENT_NAV}
-      roleLabel="Student"
-      bottomNav={<StudentBottomNav />}
-      bgVariant="student"
-      customBackground={<VantaRingsBackground />}
-    />
-  );
+  return <RoleShellLayout items={STUDENT_NAV} roleLabel="Student" bottomNav={<StudentBottomNav />} bgVariant="student" />;
 }

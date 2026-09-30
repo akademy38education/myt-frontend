@@ -18,7 +18,7 @@ export const mockTutorApplications: TutorApplicationWithApplicant[] = [
     applicantName: "Nadia Farouk",
     applicantEmail: "nadia.applicant@myt.dev",
     status: TutorVerificationStatus.PENDING,
-    headline: "Spanish & French tutor, native bilingual speaker",
+    headline: "Spanish and French tutor, native bilingual speaker",
     bio: "Recently completed a Master's in Modern Languages and have spent the last two years tutoring privately. Looking to bring that experience to MyT.",
     location: "Leeds, UK",
     languages: ["English", "Spanish", "French"],

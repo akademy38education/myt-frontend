@@ -10,7 +10,7 @@ export const mockTutors: TutorProfile[] = [
   {
     id: "tutor-1",
     userId: "user-tutor-1",
-    headline: "GCSE & A-Level Maths and Physics specialist",
+    headline: "GCSE and A-Level Maths and Physics specialist",
     bio: "Former secondary school teacher with 12 years of experience preparing students for AQA and Edexcel exams. I focus on building genuine understanding, not just memorising formulas, so results hold up under exam pressure.",
     lessonApproach: "Every lesson starts with a quick diagnostic of what's shaky, then targeted practice on exactly that, finishing with a past-paper question under timed conditions.",
     location: "London, UK",
@@ -50,7 +50,7 @@ export const mockTutors: TutorProfile[] = [
     subjects: ["subject-english"],
     yearLevels: ["GCSE", "A-Level"],
     curricula: ["AQA"],
-    teachingStyle: "Patient & supportive",
+    teachingStyle: "Patient and supportive",
     availabilitySlots: ["Weekday evenings"],
     hourlyRate: 35,
     currency: "GBP",
@@ -71,7 +71,7 @@ export const mockTutors: TutorProfile[] = [
   {
     id: "tutor-3",
     userId: "user-tutor-3",
-    headline: "Chemistry & Biology tutor — exam board specialist",
+    headline: "Chemistry and Biology tutor — exam board specialist",
     bio: "Nine years teaching Chemistry and Biology across OCR and Edexcel, with a track record of turning borderline grades into confident 7s and 8s.",
     lessonApproach: "Heavy use of past-paper mark schemes so students learn exactly what examiners reward, paired with visual models for the trickier mechanisms.",
     location: "Bristol, UK",
@@ -128,7 +128,7 @@ export const mockTutors: TutorProfile[] = [
   {
     id: "tutor-5",
     userId: "user-tutor-5",
-    headline: "French & Spanish tutor — conversation-first fluency",
+    headline: "French and Spanish tutor — conversation-first fluency",
     bio: "Bilingual French/Spanish speaker helping students build real spoken confidence alongside the grammar they need for exams.",
     lessonApproach: "Every lesson has a five-minute warm-up entirely in the target language before we move into structured grammar or exam practice.",
     location: "Edinburgh, UK",
@@ -136,7 +136,7 @@ export const mockTutors: TutorProfile[] = [
     subjects: ["subject-french", "subject-spanish"],
     yearLevels: ["Key Stage 3", "GCSE"],
     curricula: ["Edexcel"],
-    teachingStyle: "Patient & supportive",
+    teachingStyle: "Patient and supportive",
     availabilitySlots: ["Weekday afternoons", "Weekends"],
     hourlyRate: 30,
     currency: "GBP",
@@ -157,7 +157,7 @@ export const mockTutors: TutorProfile[] = [
   {
     id: "tutor-6",
     userId: "user-tutor-6",
-    headline: "Key Stage 3 & GCSE Maths — building confidence from the ground up",
+    headline: "Key Stage 3 and GCSE Maths — building confidence from the ground up",
     bio: "Newly qualified but passionate tutor focused on students who feel like they're 'bad at maths' — usually they just missed one foundational step.",
     lessonApproach: "We find the exact topic where things stopped making sense and rebuild from there, however far back that needs to go.",
     location: "Cardiff, UK",
@@ -185,7 +185,7 @@ export const mockTutors: TutorProfile[] = [
   {
     id: "tutor-7",
     userId: "user-tutor-7",
-    headline: "A-Level Economics & Maths — Oxbridge and top-grade specialist",
+    headline: "A-Level Economics and Maths — Oxbridge and top-grade specialist",
     bio: "Fifteen years preparing students for A-Level and university entrance, with a strong record of A*/A grades and successful Oxbridge economics applications.",
     lessonApproach: "Model-answer deconstruction followed by timed essay/question practice with detailed written feedback within 24 hours.",
     location: "London, UK",
@@ -213,7 +213,7 @@ export const mockTutors: TutorProfile[] = [
   {
     id: "tutor-8",
     userId: "user-tutor-8",
-    headline: "GCSE Biology & Chemistry — friendly, budget-conscious support",
+    headline: "GCSE Biology and Chemistry — friendly, budget-conscious support",
     bio: "Recent graduate offering affordable, approachable GCSE science tutoring, ideal for students who want an encouraging, low-pressure environment.",
     lessonApproach: "Short, focused sessions built around whatever topic is due next in class, with quick-fire recall quizzes to end.",
     location: "Birmingham, UK",

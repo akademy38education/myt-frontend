@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GraduationCap, Users, BookOpen, ArrowRight } from "lucide-react";
 import { UserRole } from "@myt/shared";
-import { AnimatedBackground } from "@/components/shared/AnimatedBackground";
 import { SelectableCard } from "@/components/shared/SelectableCard";
+import { Logo } from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
 
 const ROLE_OPTIONS = [
@@ -35,11 +35,10 @@ export function SelectRolePage() {
   const navigate = useNavigate();
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-accent/50 to-background">
-      <AnimatedBackground />
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-5xl flex-col px-4 py-12">
+    <div className="min-h-screen bg-gradient-to-b from-warm to-background">
+      <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-4 py-12">
         <Link to="/" className="mx-auto flex items-center gap-2 font-semibold">
-          <GraduationCap className="h-7 w-7 text-primary" aria-hidden="true" />
+          <Logo className="h-9 w-9" />
           <span className="text-lg">MyT</span>
         </Link>
 

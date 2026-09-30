@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { GraduationCap, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Twitter, Instagram, Linkedin } from "lucide-react";
+import { Logo } from "@/components/shared/Logo";
 
 const COLUMNS: Array<{ title: string; links: Array<{ label: string; to: string }> }> = [
   {
@@ -14,7 +15,7 @@ const COLUMNS: Array<{ title: string; links: Array<{ label: string; to: string }
     title: "Parents",
     links: [
       { label: "For parents", to: "/for-parents" },
-      { label: "Pricing", to: "/pricing" },
+      { label: "Pricing", to: "/subjects" },
     ],
   },
   {
@@ -48,7 +49,7 @@ export function Footer() {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-6">
           <div className="sm:col-span-2 lg:col-span-1">
             <Link to="/" className="flex items-center gap-2 font-semibold">
-              <GraduationCap className="h-6 w-6 text-primary" aria-hidden="true" />
+              <Logo className="h-8 w-8" />
               MyT
             </Link>
             <p className="mt-3 text-sm text-muted-foreground">The complete tutoring platform — diagnose, match, teach, and improve.</p>

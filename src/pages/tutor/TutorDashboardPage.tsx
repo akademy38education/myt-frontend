@@ -5,8 +5,6 @@ import { Users, Clock3, Wallet, Video, CalendarDays, ClipboardList, UploadCloud 
 import { LoadingState } from "@/components/shared/LoadingState";
 import { ErrorState } from "@/components/shared/ErrorState";
 import { EmptyState } from "@/components/shared/EmptyState";
-import { AnimatedLearningBackground } from "@/components/shared/AnimatedLearningBackground";
-import { VantaTopologyBackground } from "@/components/background/VantaTopologyBackground";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -54,13 +52,18 @@ function ScheduleStatusBadge({ status }: { status: BookingStatus }) {
   return <Badge variant="outline">Confirmed</Badge>;
 }
 
-function OverviewTile({ to, label, value }: { to: string; label: string; value: string }) {
+function OverviewTile({ to, label, value, icon: Icon }: { to: string; label: string; value: string; icon: LucideIcon }) {
   return (
     <Link to={to}>
       <Card className="myt-card-hover cursor-pointer">
-        <CardContent className="p-5">
-          <p className="text-sm text-muted-foreground">{label}</p>
-          <p className="mt-1 text-2xl font-semibold tabular-nums">{value}</p>
+        <CardContent className="flex items-start justify-between p-5">
+          <div>
+            <p className="text-sm text-muted-foreground">{label}</p>
+            <p className="mt-1 text-3xl font-bold tracking-tight tabular-nums">{value}</p>
+          </div>
+          <div className="rounded-full bg-primary/10 p-2.5 text-primary">
+            <Icon className="h-5 w-5" aria-hidden="true" />
+          </div>
         </CardContent>
       </Card>
     </Link>
@@ -83,20 +86,10 @@ export function TutorDashboardPage() {
   }, [bookings]);
 
   if (!tutorId || isLoading) {
-    return (
-      <>
-        <VantaTopologyBackground />
-        <LoadingState label="Loading your dashboard..." />
-      </>
-    );
+    return <LoadingState label="Loading your dashboard..." />;
   }
   if (isError || !data) {
-    return (
-      <>
-        <VantaTopologyBackground />
-        <ErrorState onRetry={() => refetch()} />
-      </>
-    );
+    return <ErrorState onRetry={() => refetch()} />;
   }
 
   const greetName = user ? firstName(user.fullName) : "there";
@@ -104,22 +97,23 @@ export function TutorDashboardPage() {
 
   return (
     <div className="space-y-6">
-      <VantaTopologyBackground />
-      <div className="relative isolate overflow-hidden rounded-2xl border border-border bg-card px-6 py-7 sm:px-8">
-        <AnimatedLearningBackground variant="tutor" intensity="subtle" />
-        <div className="relative z-10">
-          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            {greeting()}, {greetName} 👋
-          </h1>
-          <p className="mt-1.5 text-muted-foreground">Here's what's happening with your teaching today.</p>
-        </div>
+      <div className="rounded-2xl border border-border bg-gradient-to-br from-mint to-warm px-6 py-7 sm:px-8">
+        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+          {greeting()}, {greetName} 👋
+        </h1>
+        <p className="mt-1.5 text-muted-foreground">Here's what's happening with your teaching today.</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <OverviewTile to="/tutor/lessons" label="Today's lessons" value={String(data.todaysLessonsCount)} />
-        <OverviewTile to="/tutor/students" label="Students today" value={String(data.todaysStudentsCount)} />
-        <OverviewTile to="/tutor/calendar" label="Teaching time" value={`${Math.floor(data.todaysTeachingMinutes / 60)}h ${data.todaysTeachingMinutes % 60}m`} />
-        <OverviewTile to="/tutor/earnings" label="Today's earnings" value={formatCurrency(data.todaysEarnings, currency)} />
+        <OverviewTile to="/tutor/lessons" label="Today's lessons" value={String(data.todaysLessonsCount)} icon={Video} />
+        <OverviewTile to="/tutor/students" label="Students today" value={String(data.todaysStudentsCount)} icon={Users} />
+        <OverviewTile
+          to="/tutor/calendar"
+          label="Teaching time"
+          value={`${Math.floor(data.todaysTeachingMinutes / 60)}h ${data.todaysTeachingMinutes % 60}m`}
+          icon={Clock3}
+        />
+        <OverviewTile to="/tutor/earnings" label="Today's earnings" value={formatCurrency(data.todaysEarnings, currency)} icon={Wallet} />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">

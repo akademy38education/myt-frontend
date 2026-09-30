@@ -1,6 +1,4 @@
 import type { ReactNode } from "react";
-import { AnimatedBackground } from "@/components/shared/AnimatedBackground";
-import { AnimatedLearningBackground } from "@/components/shared/AnimatedLearningBackground";
 import { Caption } from "@/components/ui/typography";
 import { cn } from "@/utils/cn";
 
@@ -16,32 +14,28 @@ export interface HeroProps {
   /**
    * Replaces Hero's default background layers (the CSS ambient system +
    * gradient wash) with a custom one — used by the Home Page to swap in
-   * `VantaCloudsBackground` (Prompt 21) without leaking that heavier,
-   * WebGL-based dependency into every other page that renders a `Hero`.
-   * Every other Hero usage is unaffected and keeps the default background.
+   * `CloudSkyBackground`. Every other Hero usage is unaffected and keeps
+   * the default background.
    */
   backgroundSlot?: ReactNode;
 }
 
 /**
  * The reusable hero section used at the top of every marketing page —
- * animated brand backdrop + eyebrow/title/description/actions, so every
+ * warm, static brand backdrop + eyebrow/title/description/actions, so every
  * page's "top of page" moment feels like the same product.
+ *
+ * Previously ran an animated particle/node/connection-line ambient system
+ * here — replaced with a plain warm gradient after feedback that the
+ * floating tech-visualization motion read as generic SaaS rather than an
+ * education platform. A calm, static backdrop plus real content carries the
+ * "education" feeling instead (the same approach the Tiny Steps/Own Sandbox
+ * references take — almost no ambient motion, warmth from color and copy).
  */
 export function Hero({ eyebrow, title, description, actions, align = "center", size = "default", className, children, backgroundSlot }: HeroProps) {
   return (
-    <section className={cn("relative overflow-hidden", !backgroundSlot && "bg-gradient-to-b from-accent/60 to-background", className)}>
-      {backgroundSlot ?? (
-        <>
-          {/* Two layers, deliberately: AnimatedBackground gives the hero its
-              established blob/glow/particle wash, and the richer "hero" variant
-              of the global ambient system adds subject nodes + faint connection
-              lines beneath it — the hero is the one place the ambient system is
-              allowed to be more expressive than the rest of the site (Prompt 20 §20). */}
-          <AnimatedLearningBackground variant="hero" intensity="normal" />
-          <AnimatedBackground />
-        </>
-      )}
+    <section className={cn("relative overflow-hidden", !backgroundSlot && "bg-gradient-to-b from-warm to-background", className)}>
+      {backgroundSlot}
       <div
         className={cn(
           "relative z-10 mx-auto max-w-6xl px-4",
@@ -49,14 +43,41 @@ export function Hero({ eyebrow, title, description, actions, align = "center", s
           align === "center" ? "text-center" : "text-left"
         )}
       >
-        {eyebrow && <Caption className={cn("mb-3 block text-primary", align === "center" && "text-center")}>{eyebrow}</Caption>}
-        <div className={cn(align === "center" && "mx-auto max-w-3xl")}>
-          <h1 className={cn("font-bold tracking-tight", size === "default" ? "text-4xl sm:text-5xl" : "text-3xl sm:text-4xl")}>
-            {title}
-          </h1>
-          {description && (
-            <p className={cn("mt-6 text-lg text-muted-foreground", align === "center" && "mx-auto max-w-2xl")}>{description}</p>
+        {/*
+          `backgroundSlot` (Vanta Clouds on the Home Page) is a live WebGL
+          canvas redrawn every frame — `backdrop-blur` here would force the
+          browser to re-blur that canvas continuously, which is exactly what
+          caused the reported stutter. A solid-enough panel (no blur) gives
+          the same contrast/readability for free.
+        */}
+        <div className={cn(backgroundSlot && "rounded-3xl border border-white/40 bg-white/85 px-6 py-8 shadow-lg sm:px-10 sm:py-10")}>
+          {eyebrow && (
+            <Caption className={cn("mb-4 flex items-center gap-2 text-primary", align === "center" ? "justify-center text-center" : "justify-start")}>
+              <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
+              {eyebrow}
+            </Caption>
           )}
+          <div className={cn(align === "center" && "mx-auto max-w-4xl")}>
+            <h1
+              className={cn(
+                "font-bold leading-[1.05] tracking-tight text-foreground",
+                size === "default" ? "text-5xl sm:text-6xl lg:text-7xl" : "text-3xl sm:text-4xl"
+              )}
+            >
+              {title}
+            </h1>
+            {description && (
+              <p
+                className={cn(
+                  "mt-6 text-lg",
+                  backgroundSlot ? "text-foreground/80" : "text-muted-foreground",
+                  align === "center" && "mx-auto max-w-2xl"
+                )}
+              >
+                {description}
+              </p>
+            )}
+          </div>
         </div>
         {actions && (
           <div className={cn("mt-8 flex flex-col gap-3 sm:flex-row", align === "center" ? "items-center justify-center" : "items-start")}>

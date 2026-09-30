@@ -18,14 +18,14 @@ export interface PricingPlan {
  */
 export const PRICING_PLANS: PricingPlan[] = [
   {
-    name: "Students & Parents",
+    name: "Students and Parents",
     price: "Free",
     priceSuffix: "to join",
     description: "Pay tutors directly, per lesson — no subscription or platform fee.",
     features: [
       "Free SmartMatch tutor recommendations",
       "Book lessons at your tutor's hourly rate",
-      "Lesson recordings, summaries & homework included",
+      "Lesson recordings, summaries and homework included",
       "Progress tracking and reports included",
     ],
     ctaLabel: "Find my tutor",
@@ -37,17 +37,17 @@ export const PRICING_PLANS: PricingPlan[] = [
     priceSuffix: "commission during beta",
     description: "Set your own hourly rate. Keep what you earn while MyT is in beta.",
     features: [
-      "Set your own subjects & hourly rate",
+      "Set your own subjects and hourly rate",
       "AI Tutor Copilot for lesson prep",
-      "Automatic recordings, summaries & homework generation",
-      "Built-in calendar, messaging & earnings tracking",
+      "Automatic recordings, summaries and homework generation",
+      "Built-in calendar, messaging and earnings tracking",
     ],
     ctaLabel: "Apply to tutor",
     ctaTo: "/select-role",
     highlighted: true,
   },
   {
-    name: "Schools & Groups",
+    name: "Schools and Groups",
     price: "Custom",
     description: "Bulk tutoring programs with dedicated onboarding and reporting.",
     features: [

@@ -56,6 +56,12 @@ export default {
           DEFAULT: "hsl(var(--warning))",
           foreground: "hsl(var(--warning-foreground))",
         },
+        warm: "hsl(var(--warm))",
+        mint: "hsl(var(--mint))",
+        achievement: {
+          DEFAULT: "hsl(var(--achievement))",
+          foreground: "hsl(var(--achievement-foreground))",
+        },
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
@@ -90,6 +96,14 @@ export default {
           "100%": { opacity: "1", transform: "scale(1) rotate(0deg)" },
         },
         shimmer: { from: { backgroundPosition: "-200% 0" }, to: { backgroundPosition: "200% 0" } },
+        "cloud-drift-a": {
+          "0%, 100%": { transform: "translate(0, 0)" },
+          "50%": { transform: "translate(4%, -3%)" },
+        },
+        "cloud-drift-b": {
+          "0%, 100%": { transform: "translate(0, 0)" },
+          "50%": { transform: "translate(-5%, 3%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",

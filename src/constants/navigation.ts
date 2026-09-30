@@ -96,7 +96,7 @@ export const ADMIN_NAV: NavItem[] = [
   { label: "Payouts", to: "/admin/payouts", icon: Wallet },
   { label: "Disputes", to: "/admin/disputes", icon: Flag },
   { label: "Reviews", to: "/admin/reviews", icon: Star },
-  { label: "Reports & Moderation", to: "/admin/reports", icon: FileBarChart },
+  { label: "Reports and Moderation", to: "/admin/reports", icon: FileBarChart },
   { label: "Support", to: "/admin/support", icon: LifeBuoy },
   { label: "Content", to: "/admin/content", icon: FileText },
   { label: "Curriculum", to: "/admin/curriculum", icon: BookMarked },

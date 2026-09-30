@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Topbar } from "@/components/layout/Topbar";
 import { OfflineBanner } from "@/components/shared/OfflineBanner";
-import { AnimatedLearningBackground, type LearningBackgroundVariant } from "@/components/shared/AnimatedLearningBackground";
+import type { LearningBackgroundVariant } from "@/components/shared/AnimatedLearningBackground";
 import { cn } from "@/utils/cn";
 import type { NavItem } from "@/constants/navigation";
 
@@ -17,17 +17,13 @@ import type { NavItem } from "@/constants/navigation";
  * app's tab bar) — when present, main content gets extra bottom padding so
  * it never hides behind it.
  *
- * The ambient `AnimatedLearningBackground` is mounted once here (`fixed`,
- * behind everything, `pointer-events-none`) so every page under every role
- * automatically gets the atmosphere (Prompt 20 §8) without each page
- * wiring its own. It shows through only in the negative space around
- * opaque UI (Sidebar/Topbar/Cards keep their own solid backgrounds) — the
- * root's own background was intentionally lightened from an opaque wash to
- * `bg-background` so the fixed layer isn't hidden behind it.
+ * Previously ran an animated particle/orb ambient background behind every
+ * page here — removed after feedback that the floating tech-visualization
+ * motion read as generic SaaS rather than a calm education workspace. Every
+ * role now sits on a plain `bg-background`; `customBackground` still lets a
+ * specific page opt into something else where that's genuinely wanted (e.g.
+ * a role-specific accent), but nothing does by default any more.
  *
- * `customBackground` swaps that default ambient layer for something else
- * entirely — used by the Student area to run `VantaRingsBackground`
- * instead across every one of its pages (a separate, later request).
  * `main` carries `text-foreground` explicitly (not just inherited from
  * `body`) so bare text with no color class of its own still resolves
  * correctly if an ancestor puts this whole tree in dark mode — see
@@ -58,7 +54,7 @@ export function RoleShellLayout({
 }) {
   return (
     <div className="relative isolate flex min-h-screen bg-background" data-role-accent={bgVariant}>
-      <div className="fixed inset-0 -z-10 overflow-hidden">{customBackground ?? <AnimatedLearningBackground variant={bgVariant} intensity="normal" />}</div>
+      {customBackground && <div className="fixed inset-0 -z-10 overflow-hidden">{customBackground}</div>}
       <Sidebar items={items} roleLabel={roleLabel} />
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar navItems={items} roleLabel={roleLabel} />

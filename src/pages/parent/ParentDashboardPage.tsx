@@ -1,12 +1,10 @@
 import { useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useQueries } from "@tanstack/react-query";
-import { AlertCircle, BookOpen, CalendarClock, ClipboardList, MessageSquare, Search, Users, Video, Wallet } from "lucide-react";
+import { AlertCircle, BookOpen, CalendarClock, ClipboardList, MessageSquare, Search, Users, Video, Wallet, type LucideIcon } from "lucide-react";
 import { LoadingState } from "@/components/shared/LoadingState";
 import { ErrorState } from "@/components/shared/ErrorState";
 import { EmptyState } from "@/components/shared/EmptyState";
-import { AnimatedLearningBackground } from "@/components/shared/AnimatedLearningBackground";
-import { VantaFogBackground } from "@/components/background/VantaFogBackground";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -31,13 +29,18 @@ function subjectName(id: string): string {
   return SUBJECTS.find((s) => s.id === id)?.name ?? id;
 }
 
-function OverviewTile({ to, label, value }: { to: string; label: string; value: string }) {
+function OverviewTile({ to, label, value, icon: Icon }: { to: string; label: string; value: string; icon: LucideIcon }) {
   return (
     <Link to={to}>
       <Card className="myt-card-hover cursor-pointer">
-        <CardContent className="p-5">
-          <p className="text-sm text-muted-foreground">{label}</p>
-          <p className="mt-1 text-2xl font-semibold tabular-nums">{value}</p>
+        <CardContent className="flex items-start justify-between p-5">
+          <div>
+            <p className="text-sm text-muted-foreground">{label}</p>
+            <p className="mt-1 text-3xl font-bold tracking-tight tabular-nums">{value}</p>
+          </div>
+          <div className="rounded-full bg-secondary/10 p-2.5 text-secondary">
+            <Icon className="h-5 w-5" aria-hidden="true" />
+          </div>
         </CardContent>
       </Card>
     </Link>
@@ -76,20 +79,10 @@ export function ParentDashboardPage() {
   );
 
   if (!parentId || isLoading) {
-    return (
-      <>
-        <VantaFogBackground />
-        <LoadingState label="Loading your family's dashboard..." />
-      </>
-    );
+    return <LoadingState label="Loading your family's dashboard..." />;
   }
   if (isError || !data) {
-    return (
-      <>
-        <VantaFogBackground />
-        <ErrorState onRetry={() => refetch()} />
-      </>
-    );
+    return <ErrorState onRetry={() => refetch()} />;
   }
 
   const greetName = user ? firstName(user.fullName) : "there";
@@ -97,10 +90,8 @@ export function ParentDashboardPage() {
 
   return (
     <div className="space-y-6">
-      <VantaFogBackground />
-      <div className="relative isolate overflow-hidden rounded-2xl border border-border bg-card px-6 py-7 sm:px-8">
-        <AnimatedLearningBackground variant="parent" intensity="subtle" />
-        <div className="relative z-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="rounded-2xl border border-border bg-gradient-to-br from-mint to-warm px-6 py-7 sm:px-8">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
               {greeting()}, {greetName} 👋
@@ -125,10 +116,10 @@ export function ParentDashboardPage() {
       ) : (
         <>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <OverviewTile to="/parent/children" label="Children" value={String(children.length)} />
-            <OverviewTile to="/parent/lessons" label="Upcoming lessons" value={String(data.upcomingSessionsCount)} />
-            <OverviewTile to="/parent/children" label="Homework to review" value={String(homeworkDueCount)} />
-            <OverviewTile to="/parent/payments" label="This month" value={formatCurrency(data.thisMonthSpending, data.currency)} />
+            <OverviewTile to="/parent/children" label="Children" value={String(children.length)} icon={Users} />
+            <OverviewTile to="/parent/lessons" label="Upcoming lessons" value={String(data.upcomingSessionsCount)} icon={CalendarClock} />
+            <OverviewTile to="/parent/children" label="Homework to review" value={String(homeworkDueCount)} icon={ClipboardList} />
+            <OverviewTile to="/parent/payments" label="This month" value={formatCurrency(data.thisMonthSpending, data.currency)} icon={Wallet} />
           </div>
 
           <div className="grid gap-4 lg:grid-cols-3">

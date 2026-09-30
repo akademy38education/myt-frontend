@@ -43,7 +43,7 @@ export const SUBJECTS: SubjectListing[] = [
   { id: "subject-economics", name: "Economics", category: "Humanities", icon: LineChart, tutorCount: 34 },
   { id: "subject-french", name: "French", category: "Languages", icon: Languages, tutorCount: 41 },
   { id: "subject-spanish", name: "Spanish", category: "Languages", icon: Languages, tutorCount: 37 },
-  { id: "subject-art", name: "Art & Design", category: "Creative", icon: Palette, tutorCount: 22 },
+  { id: "subject-art", name: "Art and Design", category: "Creative", icon: Palette, tutorCount: 22 },
   { id: "subject-music", name: "Music", category: "Creative", icon: Music, tutorCount: 19 },
 ];
 

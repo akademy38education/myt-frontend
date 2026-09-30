@@ -6,7 +6,6 @@ import { SearchInput } from "@/components/ui/search-input";
 import { Drawer, DrawerContent, DrawerTitle, DrawerClose } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { Pagination } from "@/components/ui/pagination";
-import { AnimatedBackground } from "@/components/shared/AnimatedBackground";
 import { useAuth } from "@/hooks/useAuth";
 import {
   useTutorSearch,
@@ -58,9 +57,8 @@ export function FindTutorPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-      <section className="relative mb-8 overflow-hidden rounded-2xl border border-border bg-card p-6 sm:p-10">
-        <AnimatedBackground className="opacity-40" />
-        <div className="relative">
+      <section className="mb-8 rounded-2xl border border-border bg-gradient-to-br from-mint to-warm p-6 sm:p-10">
+        <div>
           <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Find the right tutor for you.</h1>
           <p className="mt-2 max-w-xl text-muted-foreground">
             Whether you need help with homework, exam preparation or mastering a difficult topic, MyT can help you find someone who fits.

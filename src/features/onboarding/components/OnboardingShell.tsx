@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { GraduationCap } from "lucide-react";
-import { AnimatedBackground } from "@/components/shared/AnimatedBackground";
+import { Logo } from "@/components/shared/Logo";
 import { ProgressIndicator, type OnboardingStepMeta } from "./ProgressIndicator";
 
 export interface OnboardingShellProps {
@@ -21,13 +20,12 @@ export interface OnboardingShellProps {
  */
 export function OnboardingShell({ roleLabel, steps, currentIndex, onSaveExit, children }: OnboardingShellProps) {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-accent/40 to-background">
-      <AnimatedBackground className="opacity-60" particles={false} />
-      <div className="relative z-10 flex min-h-screen flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-warm to-background">
+      <div className="flex min-h-screen flex-col">
         <header className="border-b border-border/60 bg-background/80 backdrop-blur">
           <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-4">
             <Link to="/" className="flex items-center gap-2 font-semibold">
-              <GraduationCap className="h-6 w-6 text-primary" aria-hidden="true" />
+              <Logo className="h-8 w-8" />
               <span>
                 MyT <span className="font-normal text-muted-foreground">· {roleLabel} setup</span>
               </span>

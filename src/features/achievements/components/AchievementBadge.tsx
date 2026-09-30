@@ -19,11 +19,11 @@ export function AchievementBadge({ achievement, className }: { achievement: Unlo
       <TooltipTrigger asChild>
         <div
           className={cn(
-            "flex flex-col items-center gap-2 rounded-lg border border-border bg-card p-4 text-center transition-colors hover:border-primary/40",
+            "myt-card-hover flex flex-col items-center gap-2 rounded-lg border border-border bg-card p-4 text-center hover:border-achievement/50",
             className
           )}
         >
-          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-achievement/15 text-achievement-foreground">
             <Icon className="h-5 w-5" aria-hidden="true" />
           </span>
           <p className="text-sm font-medium leading-tight">{achievement.title}</p>

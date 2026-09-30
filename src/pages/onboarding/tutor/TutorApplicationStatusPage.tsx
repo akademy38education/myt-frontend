@@ -1,8 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
-import { GraduationCap, Clock, CheckCircle2, XCircle, IdCard, BookOpen, UserCheck } from "lucide-react";
+import { Clock, CheckCircle2, XCircle, IdCard, BookOpen, UserCheck } from "lucide-react";
 import { TutorVerificationStatus } from "@myt/shared";
 import { LoadingState } from "@/components/shared/LoadingState";
 import { EmptyState } from "@/components/shared/EmptyState";
+import { Logo } from "@/components/shared/Logo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -25,7 +26,7 @@ export function TutorApplicationStatusPage() {
   return (
     <div className="mx-auto flex min-h-screen max-w-2xl flex-col px-4 py-12">
       <Link to="/" className="mx-auto flex items-center gap-2 font-semibold">
-        <GraduationCap className="h-7 w-7 text-primary" aria-hidden="true" />
+        <Logo className="h-9 w-9" />
         <span className="text-lg">MyT</span>
       </Link>
 
